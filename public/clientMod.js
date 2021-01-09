@@ -141,7 +141,7 @@ function updateCounters(data) {
   totalCounter.innerHTML = data.total;
 }
 
-let videoUrl = "https://player.twitch.tv/?channel=womeningamesar&parent=wigar.glitch.me";
+let videoUrl = "https://player.twitch.tv/?channel=womeningamesar&parent=kawzar-wigar-gallery.glitch.me";
 
 function projectionEnter(playerId, roomId) {
   if (players[playerId].nickName.length > 0) {

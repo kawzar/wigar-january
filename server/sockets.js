@@ -18,6 +18,7 @@ let visits = 0;
 let moment = require("moment");
 let game = require("./game");
 let filter = game.filter;
+let banned = []
 
 exports = module.exports = function (io, rooms, settings, images, sounds) {
   // //modding
