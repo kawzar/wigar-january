@@ -1,0 +1,146 @@
+@font-face {
+  font-family: "Press Start 2P", cursive;
+  font-weight: 400;
+  src: local("Baloo Regular"), local("Baloo-Regular"), url(https://fonts.googleapis.com/css?family=Press+Start+2P) format("ttf");
+}
+
+body {
+  font-family: "Press Start 2P", cursive;
+  -webkit-font-smoothing: none;
+}
+
+#canvas-container {
+  width: 768px;
+  height: 600px;
+  margin: 2rem auto 2rem auto;
+  color: #000;
+}
+
+canvas {
+  z-index: 1;
+  display: block;
+  /*prevents double click selection*/
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 300px;
+  margin: 2rem auto auto auto;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  touch-action: manipulation;
+}
+
+#interface {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+/*USERNAME*/
+
+.lobby-message {
+  font-size: 64px;
+  margin-bottom: 32px;
+}
+
+.lobby-error-message {
+  font-size: 32px;
+  color: #ff004d;
+}
+
+.lobby-field {
+  border: 4px solid #757575;
+  text-align: center;
+  width: 80%;
+  outline: none;
+}
+
+#info {
+  visibility: hidden;
+}
+/*bottom link*/
+
+.info {
+  position: relative;
+  display: block;
+  text-align: right;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.info a {
+  text-decoration: none;
+  color: white;
+}
+
+.info a:hover {
+  text-decoration: none;
+  color: #ff77a8;
+}
+
+.footer {
+  position: relative;
+  right: 0px;
+  bottom: 0px;
+}
+/*LOBBY OVERLAYS*/
+
+#lobby-container {
+  display: block;
+  height: 100%;
+}
+/* center on container */
+
+.content-center {
+  z-index: 2;
+  width: 100%;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  text-align: center;
+}
+
+.content-acknowledgement {
+  display: block;
+  text-align: left;
+  width: 80%;
+}
+
+.acknowledgement-message {
+  font-size: 2vw;
+  padding: 30px;
+  display: inline-block;
+  width: 100%;
+}
+/*Animate join to make sure people don't miss it*/
+
+@keyframes glowing {
+  50% {
+    background-color: #00d462;
+    box-shadow: none;
+  }
+}
+
+.join-button {
+  animation: glowing 1000ms infinite;
+}
+
+/*VIDEO OVERLAYS*/
+#video-container {
+  display: block;
+  height: 100%;
+}
+
+.content-top {
+  z-index: 2;
+  width: 100%;
+  position: relative;
+  top: 400px;
+  left: 50%;
+  transform: translate(-50%, -80%);
+  text-align: center;
+}

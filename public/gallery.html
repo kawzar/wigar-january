@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Galeria WIGAr | edición WGJ</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <meta name="title" content="Galeria WIGAr | edición WGJ" />
+    <meta name="description" content="Una propuesta de Women in Games Argentina. Una exhibición virtual de videojuegos realizados por miembros de WIGAr en el marco de la Women Game Jam 2020" />
+
+    <!-- SEO / social media-->
+    <!-- SEO / social media-->
+    <meta name="author" content="@womeningamesAR & #GameOnElArteEnJuego" />
+    <meta name="copyright" content="@womeningamesAR & #GameOnElArteEnJuego" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="Una propuesta de Women in Games Argentina. Una exhibición virtual de videojuegos realizados por miembros de WIGAr en el marco de la Women Game Jam 2020" />
+    <meta name="keywords" content="Game,Art,videogame,juego,arte,mujeres,women,WGJ,jam" />
+
+    <meta property="og:image" content="https://imgbox.com/4x0I20tW" />
+    <meta property="og:title" content="Galeria WIGAr | edición WGJ" />
+    <meta property="og:description" content="Una propuesta de Women in Games Argentina. Una exhibición virtual de videojuegos realizados por miembros de WIGAr en el marco de la Women Game Jam 2020" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@womeningamesAR" />
+    <meta name="twitter:title" content="Galeria WIGAr | edición WGJ" />
+    <meta name="twitter:description" content="Una propuesta de Women in Games Argentina. Una exhibición virtual de videojuegos realizados por miembros de WIGAr en el marco de la Women Game Jam 2020" />
+    <meta name="twitter:image" content="https://imgbox.com/4x0I20tW" />
+
+    <!-- This is a standard p5.js index, NOTE the p5.dom.min.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js"></script>
+    <script src="p5.play.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="client.js"></script>
+    <script defer src="clientMod.js"></script>
+    <script defer src="effects.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="wigar-icon.css" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="stylesheet" type="text/css" href="landing-style.css" />
+</head>
+
+<body>
+    <div id="landing">
+        <header id="navbar" class="">
+            <div class="container">
+                <div class="nav-brand">
+                    <div class="pixel-container">
+                        <a href="/">
+                            <div class="wigar-logo"></div>
+                        </a>
+                    </div>
+                    <div class="nav-title">
+                        <a href="/">
+                            <h3>Galería WIGAr</h3>
+                            <p>Edición WGJ</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="social-buttons">
+                    <p class="share-text">¡Compartir!</p>
+                    <div class="share">
+                        <a class="share-link" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//wigar.glitch.me" target="_blank" rel="noreferrer" aria-label="WomenInGamesAR en Facebook">
+                            <i class="nes-icon facebook is-small" aria-hidden="true"></i>
+                        </a>
+                        <a class="share-link" href="https://twitter.com/intent/tweet?text=%C2%A1Visit%C3%A1%20la%20Galer%C3%ADa%20WIGAr!%20-%20%40womeningamesAR%20%23WIGArGallery%20%23WGJ2020%20%23WomenGameJam%20%0Ahttps%3A//wigar.glitch.me" target="_blank" rel="noreferrer"
+                            aria-label="WomenInGamesAR en Twitter">
+                            <i class="nes-icon twitter is-small" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <main class="main-content">
+                <section class="showcase">
+                    <div class=" nes-container is-dark counters-container">
+                        <div class="counter">
+                            <div class="nes-text is-success counter-text">Recorriendo la galería ahora: </div>
+                            <div class="nes-badge">
+                                <span id="currentVisitors" class="is-success ">0</span>
+                            </div>
+                        </div>
+                        <div class="counter">
+                            <div class="nes-text is-primary counter-text">Estuvieron jugando y bailando: </div>
+                            <div class="nes-badge">
+                                <span id="totalVisitors" class="is-primary">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="loading-screen" class="nes-container is-dark">
+                        <p id="loading-message">No cierres la pagina! Estamos acomodando los arcades, ¡en breve podras ingresar! ..</p>
+                    </div>
+                </section>
+                <section class="showcase">
+                    <div>
+                        <div id="canvas-container" oncontextmenu="return false;">
+                            <!-- the lobby element is displayed before the canvas is loaded -->
+                            <div id="lobby-container" style="display: none;">
+                                <div class="content-center">
+                                    <form action="" onsubmit="return nameOk()">
+                                        <label for="lobby-field">¿Cómo te llamás?</label>
+                                        <input id="lobby-field" class="nes-input" placeholder="Nombre de usuario" maxlength="32" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+                                    </form>
+                                    <div id="lobby-error" class="lobby-error-message"></div>
+                                </div>
+                            </div>
+                            <div id="video-container" style="display: none;">
+                                <div class="content-top">
+                                    <iframe id="iframe_video" width="420" height="236" frameborder="0"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="interface">
+                            <!-- talk form is below canvas getTalkInput is what happens when return is pressed-->
+                            <form id="join-form" action="" onsubmit="return joinGame()" style="display: none;">
+                                <!-- call the function below on button press-->
+                                <button class="nes-btn is-primary join-button" type="button" onclick="joinGame();">UNIRSE</button>
+                            </form>
+
+                            <form id="user-form" action="" onsubmit="return nameOk()" style="display: none;">
+                                <!-- call the function below on button press-->
+                                <button class="nes-btn is-primary" type="button" onclick="nameOk();">CONTINUAR</button>
+                            </form>
+
+                            <form id="avatar-form" action="" onsubmit="return bodyOk()" style="display: none;">
+                                <!-- call the function below on button press-->
+                                <button class="nes-btn is-primary" type="button" onclick="bodyOk();">CONTINUAR</button>
+                            </form>
+
+                            <form id="talk-form" action="" onsubmit="return getTalkInput()" style="display: none;">
+                                <div class="nes-field is-inline">
+                                    <input class="nes-input" placeholder="Escribir acá" maxlength="40" id="chatField" autocomplete="off" />
+                                    <!-- call the function below on button press-->
+                                    <button class="nes-btn is-primary" type="button" onclick="getTalkInput();">HABLAR</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <section class="showcase">
+                    <div class="nes-container is-dark">
+                        <h4>Instrucciones</h4>
+                        <div class="lists">
+                            <ul class="nes-list is-circle">
+                                <li>Elige al avatar que mejor te represente.</li>
+                                <li>Puedes interactuar en tiempo real con quienes estén recorriendo el espacio.</li>
+                                <li>Para probar un juego cliquea el poster. Se abrirá una ventana nueva. Puedes volver a la galería cuando quieras.</li>
+                                <li>¡Que disfrutes el recorrido!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section class="showcase">
+                    <div class="center ">
+                        <a class="nes-btn" href="/ ">Home</a>
+                        <a class="nes-btn" href="/ ">Código de Convivencia</a>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+        <button type="button" class="nes-btn is-error scroll-btn" onclick="scrollToTop()"><span>&lt;</span></button>
+        <footer class="text-center">
+            <p>Hecho con <i class="nes-icon is-small heart"></i> por
+                <a href="http://womeningamesar.com/" class="external-link" target="_blank" rel="noreferrer">WomenInGamesAR</a>&nbsp;|&nbsp;
+                <span class="footer-icons">
+                <a class="external-link" href="https://www.facebook.com/womeningamesAR/" target="_blank" rel="noreferrer"
+                    aria-label="WomenInGamesAR en Facebook">
+                    <i class="nes-icon facebook is-small" aria-hidden="true"></i>
+                </a>
+                <a class="external-link" href="https://twitter.com/womeningamesAR" target="_blank" rel="noreferrer"
+                    aria-label="WomenInGamesAR en Twitter">
+                    <i class="nes-icon twitter is-small" aria-hidden="true"></i>
+                </a>
+                <a class="external-link" href="https://www.instagram.com/womeningamesargentina/" target="_blank" rel="noreferrer"
+                    aria-label="WomenInGamesAR en Instagram">
+                    <i class="nes-icon instagram is-small" aria-hidden="true"></i>
+                </a>
+                <a class="external-link" href="https://www.twitch.tv/womeningamesar" target="_blank" rel="noreferrer"
+                    aria-label="WomenInGamesAR en Twitch">
+                    <i class="nes-icon twitch is-small" aria-hidden="true"></i>
+                </a>
+                <a class="external-link" href="https://www.linkedin.com/company/women-in-games-arg/" target="_blank"
+                    rel="noreferrer" aria-label="WomenInGamesAR en LinkedIn">
+                    <i class="nes-icon linkedin is-small" aria-hidden="true"></i>
+                </a>
+                <a href="mailto:womeningamesar@gmail.com" target="_blank">
+                    <i class="nes-icon gmail is-small" aria-hidden="true"></i>
+                </a>
+            </span>
+            </p>
+            <p>Arte y diseño: <a href="https://laurapalavecino.com/" class="external-link" target="_blank" rel="noreferrer">Laura Palavecino</a> - Programación:<a href="https://kawzar.itch.io/" class="external-link" target="_blank" rel="noreferrer">Macarena Haspert</a></p>
+            <p class="license">Basado en <a href="https://glitch.com/~likelike" class="external-link" target="_blank">LIKELIKE
+                    online</a> by <a href="https://molleindustria.org/" class="external-link" target="_blank">Molleindustria</a> bajo <a href="https://gugs.sindominio.net/licencias/lgpl-es.html" class="external-link" target="_blank">GNU LESSER
+                    GENERAL PUBLIC LICENSE Version 2.1</a> - Septiembre 2020</p>
+        </footer>
+</body>
