@@ -3,7 +3,7 @@ const moment = require("moment");
 
 async function getTotalVisits() {
   const analytics = await loadAnalyticsCollection();
-  return await analytics.estimatedDocumentCount({ ip: { $nin: [null, ""] } });
+  return await analytics.countDocuments({ ip: { $nin: [null, ""] } });
 }
 
 async function logVisitor(ip) {
