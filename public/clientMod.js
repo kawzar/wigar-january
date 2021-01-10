@@ -153,3 +153,13 @@ function projectionEnter(playerId, roomId) {
     if (e != null) e.style.display = "block";
   }
 }
+
+function projectionExit(playerId)
+{
+    if(playerId == me.id)
+    {
+        e = document.getElementById("video-container");
+        if (e != null)
+            e.style.display = "none";
+    }
+}
