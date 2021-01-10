@@ -6,13 +6,17 @@ var speaksGibberish = false;
 var gibberishFrameCount = 0;
 var drunkPlayers = [];
 var gibberishTalkPlayers = [];
+let videoUrl =
+  "https://player.twitch.tv/?channel=womeningamesar&parent=kawzar-wigar-gallery.glitch.me";
 
 function initMod(playerId, roomId) {
-  print("Mod: " + players[playerId].nickName + " (you) joined the game at " + roomId);
+  print(
+    "Mod: " + players[playerId].nickName + " (you) joined the game at " + roomId
+  );
 
   //prevent duplicate listeners
   if (!socket.hasListeners("drinkInteracted")) {
-    socket.on("drinkInteracted", function (player) {
+    socket.on("drinkInteracted", function(player) {
       console.log("interacted " + player.id);
       if (player.id == me.id) {
         isDrunk = true;
@@ -22,7 +26,7 @@ function initMod(playerId, roomId) {
   }
 
   if (!socket.hasListeners("beerInteracted")) {
-    socket.on("beerInteracted", function (player) {
+    socket.on("beerInteracted", function(player) {
       drunkPlayers.push(player.id);
       handStand(player.id, -1);
 
@@ -34,15 +38,15 @@ function initMod(playerId, roomId) {
   }
 
   if (!socket.hasListeners("beerFinished")) {
-    socket.on("beerFinished", function (p) {
+    socket.on("beerFinished", function(p) {
       console.log("finished " + p.id);
-      drunkPlayers = drunkPlayers.filter((playerId) => playerId !== p.id);
+      drunkPlayers = drunkPlayers.filter(playerId => playerId !== p.id);
       handStand(p.id, 1);
     });
   }
 
   if (!socket.hasListeners("gibberishInteracted")) {
-    socket.on("gibberishInteracted", function (player) {
+    socket.on("gibberishInteracted", function(player) {
       gibberishTalkPlayers.push(player.id);
 
       if (player.id == me.id) {
@@ -55,20 +59,22 @@ function initMod(playerId, roomId) {
           color: p.labelColor,
           message: "*gulp*",
           x: p.x,
-          y: p.y,
+          y: p.y
         });
       }
     });
   }
 
   if (!socket.hasListeners("gibberishFinished")) {
-    socket.on("gibberishFinished", function (p) {
-      gibberishTalkPlayers = gibberishTalkPlayers.filter((playerId) => playerId !== p.id);
+    socket.on("gibberishFinished", function(p) {
+      gibberishTalkPlayers = gibberishTalkPlayers.filter(
+        playerId => playerId !== p.id
+      );
     });
   }
 
   if (!socket.hasListeners("playerAmount")) {
-    socket.on("playerAmount", function (data) {
+    socket.on("playerAmount", function(data) {
       updateCounters(data);
     });
   }
@@ -128,6 +134,10 @@ function patioIntro(playerId, roomId) {
   }
 }
 
+function firstfloorExit(playerId) {
+  console.log("exit?");
+}
+
 function handStand(playerId, multiplier) {
   var p = players[playerId];
   p.sprite.scale = multiplier * ASSET_SCALE;
@@ -141,9 +151,14 @@ function updateCounters(data) {
   totalCounter.innerHTML = data.total;
 }
 
-let videoUrl = "https://player.twitch.tv/?channel=womeningamesar&parent=kawzar-wigar-gallery.glitch.me";
+function firstfloorEnter(playerId, roomId) {
+  if (playerId == me.id) {
+    e = document.getElementById("video-container");
+    if (e != null) e.style.display = "none";
+  }
+}
 
-function projectionEnter(playerId, roomId) {
+function theatreEnter(playerId, roomId) {
   if (players[playerId].nickName.length > 0) {
     print("player with name entered " + roomId);
     // start the video!
@@ -152,14 +167,4 @@ function projectionEnter(playerId, roomId) {
     e = document.getElementById("video-container");
     if (e != null) e.style.display = "block";
   }
-}
-
-function projectionExit(playerId)
-{
-    if(playerId == me.id)
-    {
-        e = document.getElementById("video-container");
-        if (e != null)
-            e.style.display = "none";
-    }
 }

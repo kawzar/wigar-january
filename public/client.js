@@ -417,8 +417,7 @@ function setup() {
 
   //I create a socket but I wait to assign all the functions before opening a connection
   socket = io({
-    autoConnect: false,
-    transports: ["polling"],
+    autoConnect: false
   });
 
   //server sends out the response to the name submission, only if lurk mode is disabled
@@ -856,7 +855,7 @@ function newGame() {
     try {
       console.log("Player " + p.id + " left " + p.room);
 
-      if (p.id == me.id) {
+      if (me && p.id == me.id) {
         print("STOP MUSIC");
         //stop music before you leave, if any
         if (ROOMS[p.room].musicLoop != null) {
@@ -1929,6 +1928,8 @@ function executeCommand(c) {
         if (ROOMS[me.room].musicLoop != null) {
           ROOMS[me.room].musicLoop.stop();
         }
+        
+        console.log(me.room);
 
         if (moment().isBetween(moment(ROOMS[c.room].startDate), moment(ROOMS[c.room].endDate))) {
           if (c.enterPoint != null) {

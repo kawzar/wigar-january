@@ -23,7 +23,6 @@ router.get("/images", async (req, res) => {
 });
 
 async function loadConfigCollection() {
-  console.log(process.env.MONGO_URL);
   const client = await mongodb.MongoClient.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
