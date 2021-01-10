@@ -1,5 +1,10 @@
+let moment = require("moment");
+let game = require("./game");
+let analytics = require("./analytics");
+let filter = game.filter;
+
 //should be the same as index maxlength="16"
-let MAX_NAME_LENGTH = 16;
+let MAX_NAME_LENGTH = 32;
 
 //cap the overall players
 let MAX_PLAYERS = -1;
@@ -8,17 +13,14 @@ let MAX_PLAYERS = -1;
 let MAX_PLAYERS_PER_ROOM = 200;
 
 //save the server startup time and send it in case the clients need to syncronize something
-let START_TIME = Date.now();
+let START_TIME = moment().toDate();
 
 let VERSION = "1.0";
 
 //views since the server started counts relogs
 let visits = 0;
 
-let moment = require("moment");
-let game = require("./game");
-let filter = game.filter;
-let banned = []
+let banned = [];
 
 exports = module.exports = function (io, rooms, settings, images, sounds) {
   // //modding
@@ -179,7 +181,10 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
             newPlayer.new = true;
 
             //let"s not count lurkers
-            if (playerInfo.nickName != "") visits++;
+            if (playerInfo.nickName != "") {
+              visits++;
+              analytics.logVisitor(IP);
+            }
 
             //send all players information about the new player
             //upon creation destination and position are the same
@@ -195,14 +200,16 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
             }
 
             //check if there is a custom function in the MOD to call at this point
-            // if (MOD[playerInfo.room + "Join"] != null) {
-            //   //call it!
-            //   MOD[playerInfo.room + "Join"](newPlayer, playerInfo.room);
-            // }
+            if (MOD[playerInfo.room + "Join"] != null) {
+              //call it!
+              MOD[playerInfo.room + "Join"](newPlayer, playerInfo.room);
+            }
 
             console.log("There are now " + Object.keys(game.gameState.players).length + " players on this server. Total visits " + visits);
 
-            io.sockets.emit("playerAmount", { current: Object.keys(game.gameState.players).length, total: visits });
+            analytics.getTotalVisits().then((total) => {
+              io.sockets.emit("playerAmount", { current: Object.keys(game.gameState.players).length, total: total });
+            });
           }
         }
       } catch (e) {
