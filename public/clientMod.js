@@ -7,7 +7,7 @@ var gibberishFrameCount = 0;
 var drunkPlayers = [];
 var gibberishTalkPlayers = [];
 let videoUrl =
-  "https://player.twitch.tv/?channel=womeningamesar&parent=kawzar-wigar-gallery.glitch.me";
+  "https://player.twitch.tv/?channel=womeningamesar&parent=wigar.glitch.me";
 
 function initMod(playerId, roomId) {
   print(

@@ -208,6 +208,7 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
             console.log("There are now " + Object.keys(game.gameState.players).length + " players on this server. Total visits " + visits);
 
             analytics.getTotalVisits().then((total) => {
+              console.log(total);
               io.sockets.emit("playerAmount", { current: Object.keys(game.gameState.players).length, total: total });
             });
           }
