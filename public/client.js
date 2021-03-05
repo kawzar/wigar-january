@@ -20,7 +20,7 @@ var LURK_MODE = true;
 
 //expose the room locations on the url and make them them shareable
 //you can access the world from any point. False ignores
-var ROOM_LINK = true;
+var ROOM_LINK = false;
 
 //can by changed by user
 var SOUND = true;
@@ -1401,6 +1401,9 @@ function scaleCanvas() {
 
   var form = document.getElementById("interface");
   form.setAttribute("style", "width:" + WIDTH * canvasScale + "px;");
+  
+  var projection = document.getElementById("iframe_video");
+  projection.setAttribute("style", "width:" + ((WIDTH - 64) * canvasScale) + "px; height: " + ((HEIGHT - 90) * canvasScale) + "px")
 }
 
 //I could do this in DOM (regular html and javascript elements)

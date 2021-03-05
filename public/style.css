@@ -132,6 +132,7 @@ canvas {
 /*VIDEO OVERLAYS*/
 #video-container {
   display: block;
+  width: 720;
   height: 100%;
 }
 
@@ -139,7 +140,7 @@ canvas {
   z-index: 2;
   width: 100%;
   position: relative;
-  top: 453px;
+  top: 63%;
   left: 50%;
   transform: translate(-50%, -80%);
   text-align: center;

@@ -1,17 +1,22 @@
 const express = require("express");
 const cors = require("cors");
+const enforce = require('express-sslify');
+
 require("dotenv").config();
 
 const app = express();
 const IO_PORT = process.env.PORT || 3000;
 
+app.use(express.static(`${__dirname}/../public/`));
 app.use(cors());
 
 const data = require("./routes/api/data");
 const routes = require("./routes/routes.js");
 app.use("/api/data", data.router);
 app.use("/", routes.router);
-app.use(express.static(`${__dirname}/../public/`));
+if (process.env.ENVIRONMENT === "production") {
+    app.use(enforce.HTTPS({ trustProtoHeader: true }));
+}
 
 let io;
 (async () => {
