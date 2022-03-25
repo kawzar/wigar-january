@@ -1,10 +1,10 @@
 {
   "name": "gallery",
-  "version": "0.0.1",
-  "description": "example",
+  "version": "1.0.1",
+  "description": "wigar gallery",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "14.x"
