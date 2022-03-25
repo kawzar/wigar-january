@@ -1,3 +1,5 @@
+//load secret config vars
+
 //time before disconnecting (forgot the tab open?)
 var ACTIVITY_TIMEOUT = 10 * 60 * 1000;
 
@@ -128,7 +130,7 @@ function adminCommand(adminSocket, str) {
         }
         break;
 
-      //trigger a direct popup
+        //trigger a direct popup
       case "popup":
         var s = socketByName(cmd[1]);
         if (s != null) {
@@ -143,14 +145,14 @@ function adminCommand(adminSocket, str) {
         }
         break;
 
-      //send fullscreen message to everybody
+        //send fullscreen message to everybody
       case "god":
         cmd.shift();
         var msg = cmd.join(" ");
         io.sockets.emit("godMessage", msg);
         break;
 
-      //disconnect all sockets
+        //disconnect all sockets
       case "nuke":
         for (var id in io.sockets.sockets) {
           io.sockets.sockets[id].emit("errorMessage", "Server Restarted\nPlease Refresh");
@@ -159,7 +161,7 @@ function adminCommand(adminSocket, str) {
         }
         break;
 
-      //add to the list of banned IPs
+        //add to the list of banned IPs
       case "ban":
         var IP = IPByName(cmd[1]);
         var s = socketByName(cmd[1]);
@@ -182,8 +184,8 @@ function adminCommand(adminSocket, str) {
         banned = [];
         break;
 
-      //forces a hard refresh - all players disconnect
-      //used to load a new version of the client
+        //forces a hard refresh - all players disconnect
+        //used to load a new version of the client
       case "refresh":
         io.sockets.emit("refresh");
         break;
@@ -270,7 +272,9 @@ let myBadWords = [
   "put4as",
   "tr0l4s",
 ];
-let filter = new Filter({ emptyList: true });
+let filter = new Filter({
+  emptyList: true
+});
 filter.addWords(...myBadWords);
 
 //p5 style alias

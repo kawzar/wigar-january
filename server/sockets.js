@@ -1,6 +1,5 @@
 let moment = require("moment");
 let game = require("./game");
-let analytics = require("./analytics");
 let filter = game.filter;
 
 //should be the same as index maxlength="16"
@@ -63,11 +62,15 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
     //this appears in the terminal
     console.log("A user connected");
 
-    let data = { rooms: rooms, sounds: sounds, settings: settings, images: images };
+    let data = {
+      rooms: rooms,
+      sounds: sounds,
+      settings: settings,
+      images: images
+    };
 
     //this is sent to the client upon connection
     socket.emit("serverWelcome", VERSION, data, START_TIME);
-
     //wait for the player to send their name and info, then broadcast them
     socket.on("join", function (playerInfo) {
       //console.log("Number of sockets " + Object.keys(io.sockets.connected).length);
@@ -120,8 +123,7 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
           }
         }
 
-        if (isBanned) {
-        }
+        if (isBanned) {}
         //prevent a hacked client from duplicating players
         else if (game.gameState.players[socket.id] != null) {
           console.log("ATTENTION: there is already a player associated to the socket " + socket.id);
@@ -209,7 +211,10 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
 
             analytics.getTotalVisits().then((total) => {
               console.log(total);
-              io.sockets.emit("playerAmount", { current: Object.keys(game.gameState.players).length, total: total });
+              io.sockets.emit("playerAmount", {
+                current: Object.keys(game.gameState.players).length,
+                total: total
+              });
             });
           }
         }
@@ -227,7 +232,10 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
 
         var playerObject = game.gameState.players[socket.id];
 
-        io.sockets.emit("playerLeft", { id: socket.id, disconnect: true });
+        io.sockets.emit("playerLeft", {
+          id: socket.id,
+          disconnect: true
+        });
 
         //check if there is a custom function in the MOD to call at this point
         if (playerObject != null)
@@ -242,7 +250,10 @@ exports = module.exports = function (io, rooms, settings, images, sounds) {
         //delete the player object
         delete game.gameState.players[socket.id];
         console.log("There are now " + Object.keys(game.gameState.players).length + " players on this server");
-        io.sockets.emit("playerAmount", { current: Object.keys(game.gameState.players).length, total: visits });
+        io.sockets.emit("playerAmount", {
+          current: Object.keys(game.gameState.players).length,
+          total: visits
+        });
       } catch (e) {
         console.log("Error on disconnect, object malformed from" + socket.id + "?");
         console.error(e);
