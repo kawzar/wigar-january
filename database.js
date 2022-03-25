@@ -44,13 +44,15 @@ module.exports = {
 
   getCount: async () => {
     try {
-      return await db.each("SELECT COUNT(*) AS count FROM Visitors", (err, row) => {row.count});
+      return await db.each("SELECT COUNT(*) AS count FROM Visitors", (err, row) => {
+        row.count
+      });
     } catch (dbError) {
       console.error(dbError);
     }
   },
 
-  addFlower: async (ip) => {
+  addVisitor: async (ip) => {
     let success = false;
     try {
       success = await db.run(
