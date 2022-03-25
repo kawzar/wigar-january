@@ -2,7 +2,7 @@
 
 //load secret config vars
 require('dotenv').config()
-const DATA = require('./data')
+const DATA = require('./data.js')
 
 var port = process.env.PORT || 3000
 
@@ -86,20 +86,18 @@ app.get('/', (request, response) => {
   })
 })
 
-const path = require("path");
-const router = express.Router();
-router.get("/gallery", async (req, res) => {
-  res.sendFile(path.resolve("public/gallery.html"));
+
+app.get("/gallery", async (req, res) => {
+ res.sendFile('./public/gallery.html', {
+    root: __dirname
+  })
 });
 
-router.get("/coc", async (req, res) => {
-  res.sendFile(path.resolve("public/coc.html"));
+app.get("/coc", async (req, res) => {
+ res.sendFile('./public/coc.html', {
+    root: __dirname
+  })
 });
-
-module.exports = {
-  router: router,
-};
-
 
 //when a client connects the socket is established and I set up all the functions listening for events
 io.on('connection', function (socket) {

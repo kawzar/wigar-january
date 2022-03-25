@@ -19,10 +19,6 @@ module.exports.SOUNDS = [
     ["beat1", "beat1.ogg"], //credit https://www.youtube.com/watch?v=ugLVpZm69DE
     ["beat2", "beat2.ogg"], // credit https://www.youtube.com/watch?v=dPdoxIz0w24
     ["beat3", "beat3.ogg"], //credit https://www.youtube.com/watch?v=XShEWT4MwJs
-    ["DJStop", "DJStop.mp3"],
-    ["patiomix", "patiomix.mp3"],
-    ["chillgaming", "chillgaming.mp3"],
-    ["cruisingalong", "cruisingalong.mp3"]
 ];
 
 module.exports.ROOMS = {
@@ -190,8 +186,6 @@ module.exports.ROOMS = {
                 }
             },
         },
-        music: "patiomix.mp3",
-        musicVolume: 0.75
     },
 
     entrada: {
@@ -304,8 +298,6 @@ module.exports.ROOMS = {
                 }
             }
         },
-        music: "cruisingalong.mp3",
-        musicVolume: 0.5
     },
 
     room2: {
@@ -394,7 +386,6 @@ module.exports.ROOMS = {
                 }
             }
         },
-        music: "chillgaming.mp3"
     },
 
     room3: {
@@ -498,8 +489,6 @@ module.exports.ROOMS = {
                 }
             }
         },
-        music: "chillgaming.mp3",
-        musicVolume: 0.5
     },
 
     room1: {
@@ -603,7 +592,5 @@ module.exports.ROOMS = {
                 }
             }
         },
-        music: "chillgaming.mp3",
-        musicVolume: 0.5
     }
 };
